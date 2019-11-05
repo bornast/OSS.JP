@@ -1,10 +1,5 @@
 package task1;
 
-/**
- *
- * @author borna
- */
-
 public class CalculateCRC32ForByteArray {
    
     public static void main(String[] args) {
