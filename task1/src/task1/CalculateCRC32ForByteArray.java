@@ -4,7 +4,7 @@ public class CalculateCRC32ForByteArray {
    
     public static void main(String[] args) {
         
-        String str = "Generate CRC32 Checksum For Byte Array Exampleaaaa";
+        String str = "Generate CRC32 Checksum For Byte Array Example";
         byte bytes[] = str.getBytes();
         Checksum checksum = new CRC32();
 

@@ -4,7 +4,7 @@ public class CalculateCRC32ForByteArray {
    
     public static void main(String[] args) {
         
-        String str = "Generate CRC32 Checksum For Byte Array Exampleaaaa";
+        String str = "Generate CRC32 Checksum For Byte Array Example";
         byte bytes[] = str.getBytes();
         Checksum checksum = new CRC32();
 
@@ -18,11 +18,11 @@ public class CalculateCRC32ForByteArray {
         
         checksum.update(100);
         lngChecksum = checksum.getValue();
-        System.out.println("CRC32 checksum for byte array after reset is:" + lngChecksum);
+        System.out.println("CRC32 checksum for byte array after int update:" + lngChecksum);
         
         ((CRC32)checksum).update(bytes);        
         lngChecksum = checksum.getValue();
-        System.out.println("CRC32 checksum for byte array after reset is:" + lngChecksum);
+        System.out.println("CRC32 checksum for byte array after byte update:" + lngChecksum);
         
     }
     
