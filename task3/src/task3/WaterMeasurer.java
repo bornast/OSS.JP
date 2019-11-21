@@ -1,60 +1,60 @@
-package task3;
+package test.test;
+
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.eclipse.paho.client.mqttv3.persist.MemoryPersistence;
 
 public class WaterMeasurer {
+   
+	private List<Sensor> sensors;
+    
+    public WaterMeasurer() {        
+        /*sensors.add(SensorFactory.GetSensor("waterTemperature", IUnitOfMeasure.C));
+        sensors.add(SensorFactory.GetSensor("waterPressure", IUnitOfMeasure.Bar));
+        sensors.add(SensorFactory.GetSensor("waterConsuptionDay", IUnitOfMeasure.liter));
+        sensors.add(SensorFactory.GetSensor("waterConsuptionYear", IUnitOfMeasure.m3));*/
+    }
+                
+    public WaterMeasurer(List<Sensor> sensors) {
+        this.sensors = sensors;
+    }     
+    
+    public void StartPublishing() throws InterruptedException {
 
-    private Sensor waterTemperature;
-    private Sensor waterPressure;
-    private Sensor waterConsuptionDay;
-    private Sensor waterConsuptionYear;
-	
-    public WaterMeasurer() {
-        this.waterTemperature = new Sensor();
-        this.waterPressure = new Sensor();
-        this.waterConsuptionDay = new Sensor();
-        this.waterConsuptionYear = new Sensor();
+        String broker       = "tcp://127.0.0.1:1883";
+        String clientId     = "JavaSample";
+        MemoryPersistence persistence = new MemoryPersistence();
+        int timesToPublish = 0;
+        
+	        try {
+	            MqttClient sampleClient = new MqttClient(broker, clientId, persistence);
+	            MqttConnectOptions connOpts = new MqttConnectOptions();
+	            connOpts.setCleanSession(true);
+	            sampleClient.connect(connOpts);
+	            
+	            while (timesToPublish < 3) {
+	            
+		            for (int i = 0; i < sensors.size(); i++) { 
+		            
+		            	MqttMessage sensorMessage = new MqttMessage(sensors.get(i).GetRandomMessage().getBytes());
+		            	sampleClient.publish(sensors.get(i).GetName(), sensorMessage);
+		            	
+		            }	
+		            TimeUnit.SECONDS.sleep(3);
+		            timesToPublish++;
+	            }
+	            // dissconect
+	            sampleClient.disconnect();
+	            System.exit(0);
+	        } catch(MqttException me) {            
+	            me.printStackTrace();
+	        }    	
     }
-
-    public WaterMeasurer(Sensor waterTemperature, Sensor waterPressure, Sensor waterConsuptionDay, Sensor waterConsuptionYear) {
-        this.waterTemperature = waterTemperature;
-        this.waterPressure = waterPressure;
-        this.waterConsuptionDay = waterConsuptionDay;
-        this.waterConsuptionYear = waterConsuptionYear;
-    }
-                      
-    public String GetWaterTemperature() {	
-        return this.waterTemperature.GetName();
-    }
-	
-    public String GetWaterPressure() {
-        return this.waterPressure.GetName();
-    }
-
-    public String GetWaterConsuptionDay() {
-        return this.waterConsuptionDay.GetName();
-    }
-
-    public String GetWaterConsuptionYear() {
-        return this.waterConsuptionYear.GetName();
-    }
-
-    public String GetRandomWaterTemperature() {	
-        this.waterTemperature.SetRandomName(-32668, 32668, 10, IUnitOfMeasure.C);
-        return GetWaterTemperature();
-    }
-
-    public String GetRandomWaterPressure() {
-        this.waterTemperature.SetRandomName(-0, 65336, 1000, IUnitOfMeasure.Bar);
-        return GetWaterPressure();
-    }
-
-    public String GetRandomWaterConsuptionDay() {
-        this.waterTemperature.SetRandomName(0, 65336, 0, IUnitOfMeasure.liter);
-        return GetWaterConsuptionDay();
-    }
-
-    public String GetRandomWaterConsuptionYear() {
-        this.waterTemperature.SetRandomName(0, 65336, 10, IUnitOfMeasure.m3);
-        return GetWaterConsuptionYear();
-    }
-	
+    
+    
+    	
 }

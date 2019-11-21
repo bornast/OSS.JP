@@ -1,8 +1,8 @@
-package task3;
+package test.test;
 
 public enum IUnitOfMeasure {
-    Bar,
-    C,
-    m3,
-    liter	
+	Bar,
+	C,
+	m3,
+	liter	
 }
