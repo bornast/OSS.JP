@@ -1,0 +1,38 @@
+{
+  "broker": "tcp://127.0.0.1:1883",
+  "clientId": "myClient",
+  "topic":  "sensors",
+  "sensors": [
+    {
+      "sensorName": "sensor1",
+      "factor": 10,
+      "minValue": -32668,
+      "maxValue": 32667,
+      "unitOfMeasure": "C"
+    },
+    {
+
+      "sensorName": "sensor2",
+      "factor": 10,
+      "minValue": -32668,
+      "maxValue": 32667,
+      "unitOfMeasure": "C"
+    },
+    {
+
+      "sensorName": "sensor3",
+      "factor": 10,
+      "minValue": -32668,
+      "maxValue": 32667,
+      "unitOfMeasure": "C"
+    },
+    {
+
+      "sensorName": "sensor4",
+      "factor": 10,
+      "minValue": -32668,
+      "maxValue": 32667,
+      "unitOfMeasure": "C"
+    }
+  ]
+}
